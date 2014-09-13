@@ -1,0 +1,8 @@
+creating domoapp for users and micro posts using scaffolding. However scaffolding is used initially tto give the
+first taste of MCV programing. You do not really develop an application using Scaffolding, so this will be the first and the last application which we create using scaffolding. Scaffolding is really cheating, it generates 
+everything automatically and it may no make sense initially. 
+we will have to learn about Resources and the Representational State transfer(REST) architecture.
+
+
+In model view contoller when we hit resources from routs.rb file it goes thorugh resources :users to perform 
+any task. THis task then goes to controller (users_controller.rb) and then it calls the views or the models associated with contoller
