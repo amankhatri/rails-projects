@@ -3,6 +3,11 @@ first taste of MCV programing. You do not really develop an application using Sc
 everything automatically and it may no make sense initially. 
 we will have to learn about Resources and the Representational State transfer(REST) architecture.
 
+after creating an app you have to think what kind of application you have to create. So we need to
+create microblogs and we would need users (id,name and email) and then we would need microposts with collumns(id , content and user_id which would correspond to the id from users which would be a 
+foreign key in microposts to link users to micropst). Rails generates the id field automatically for all the models. so to generate  user model you will do
+ rails g scaffold user name:string email:string
+This generates a proper database to manupulate name, and email of user model to store in database.
 
 In model view contoller when we hit resources from routs.rb file it goes thorugh resources :users to perform 
 any task. THis task then goes to controller (users_controller.rb) and then it calls the views or the models associated with contoller
