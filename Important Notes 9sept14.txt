@@ -8,6 +8,30 @@ create microblogs and we would need users (id,name and email) and then we would 
 foreign key in microposts to link users to micropst). Rails generates the id field automatically for all the models. so to generate  user model you will do
  rails g scaffold user name:string email:string
 This generates a proper database to manupulate name, and email of user model to store in database.
+to prepare the data base we do
+rake db:migrate
 
-In model view contoller when we hit resources from routs.rb file it goes thorugh resources :users to perform 
-any task. THis task then goes to controller (users_controller.rb) and then it calls the views or the models associated with contoller
+When web Browser hits /users, the rails router
+(routes.rb) directs the application to index action, index is used as default page in web, in one of the controllers in our app in this case users_controllers.rb which then talks to model (users.rb) which returns users as ruby array from the database to controller (users_controllers). Then controller gives the info to view (@users) and view returns it to controller using html protocol and controller sends it to browser.
+resources :users makes tons of routes, we will learn in near future
+so the word action refers ruby function, covered in future (Chapter 4)
+users_controller
+when you do /users , the the router calls the index action from users_controller
+@user is variable, 
+and User.all means User class and all method which gets called from models folder
+/app/models/user.rb look into the specific files
+model is incharge of talking to controller not the db
+#ruby uses "<" this for inheritance. 
+#activeRecord is the default lib defined from rails and base is the class
+/app/views/index.html.erb . this is ruby embedded html files, 
+rails allows you to embed ruby in html
+The variable in controller, @user gets passed to views
+The embedded ruby gets passed onto controller in form of html
+look at the images too
+there are four http request which users have get , post , put, delete. This is REST. REST consists of structues of url actions and http requests. Look at the image for list of http request url action and purpose.
+resources:users associates the default http requests to display different urls associated with controllers, and views.
+Scaffolding also create test but it is rudimentory.
+to rollback database you do 
+rake db:rollback
+and to destroy/ delete controller or the files created by rails g command
+rails distroy scaffold Micropost
