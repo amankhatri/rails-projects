@@ -1,0 +1,7 @@
+we will start with mostly static pages
+we will be using respec for generating the test , however the default test  called test unit
+so to suppress test unit we use  --skip-test-unit and this would prevent rails to generate the default test directory
+ rails new sample_app --skip-test-unit
+configure the right gems in gemsfile
+now create rspec configuration file by doing 
+rails generate rspec:install
