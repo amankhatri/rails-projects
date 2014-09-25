@@ -1,0 +1,68 @@
+we will start with mostly static pages
+we will be using respec for generating the test , however the default test  called test unit
+so to suppress test unit we use  --skip-test-unit and this would prevent rails to generate the default test directory
+
+ rails new sample_app --skip-test-unit
+
+configure the right gems in gemsfile
+now create rspec configuration file by doing 
+
+rails generate rspec:install
+
+rails has two ways of handling static pages
+first is serving static html page from public directory. Static html means just the html file no embeded ruby or java or anything. just add a new file to public folder and name is filename.html and that would be static html page
+now the other way to create html file is through rails stack in view and controller part. For our app we will have home page, about page and a contact page. Since we have static pages , we would like to have a controller with one action per page by running the command
+
+rails generate controller Pages home contact
+
+we will intentionally forget about the about page and add it manually later
+now look at the config\routes.rb now instead of resources we have get request defined for 
+home and contact pages. 
+now do http:/localhost:3000/pages/home.html
+this brings up the pages in app/views/pages/home.html.erb
+if you delete the home method from the controllers file right now and go the http:/localhost:3000/pages/home.html link , the rails will still bring up the page by implicit actions.
+we are doing teset driven development and we will write test before making the application 
+for this purpose we will write a test for About page and then we will see the test fail
+now we will remove the unwanted files from the rails application which gets generated automatically.
+so we will remove spec/views/
+
+git rm -r spec/views
+
+and we will remove spec/helpers
+
+git rm -r spec/helpers
+
+we will test our application in controllers views. However every one has their own preference all it matters is you should test, now if we see the the spec ditectory  there is 1)Controllers directory and 2) spec_helper.rb.
+In Controllers directory we have Controllers pages_controller_spec.rb.
+even if we don't have anyhing yet, to run our test we will do 
+
+rpec spec/
+
+this error occured 
+C:\Users\Aman\Documents\GitHub\rails-projects\sample_app>rspec spec/
+C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/bundler-1.6.2/lib/bundler/r
+untime.rb:34:in `block in setup': You have already activated rspec-core 3.1.4, b
+ut your Gemfile requires rspec-core 2.13.1. Prepending `bundle exec` to your com
+mand may solve this. (Gem::LoadError)
+to deal with error execute
+
+ gem install rspec -v 2.13.0
+ add gem minitest to gemfile
+ run bundle install
+
+Run the spec using
+
+$ bundle exec rspec spec/
+
+This will ensure the command is executed with the same version listed in your Gemfile.
+
+rspec leads to too much time over head and to reduce it we can install spork -- I am not doing it.
+now we have something called autotest which can we install.
+we will now generate test which would lead to failure. now spec/pages_controller_spec.rb is a ruby file and rpec exploits maliability of ruby to make a DSL which is domain specific language
+
+  describe "GET 'home'" do
+    it "returns http success" do
+      get 'home'  <-- get is a function which generates a 				get request
+      response.should be_success <-- success refers to what 							do you get in return you should get some page
+    end
+  end
