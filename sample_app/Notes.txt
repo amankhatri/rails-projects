@@ -66,3 +66,32 @@ we will now generate test which would lead to failure. now spec/pages_controller
       response.should be_success <-- success refers to what 							do you get in return you should get some page
     end
   end
+  now we create a test
+  and we go to pages_controller_spec.rb and write a 
+  test for pages controller
+    describe "GET 'about'" do
+    it "returns http success" do
+      get 'about'
+      response.should be_success
+    end
+  end
+
+  re run the test
+  ops, 
+  routes missing
+  enter the routes
+  --pages/about
+  rereun the test
+  ops,
+  we haven't defined the about page in pages_controller
+
+ def about
+ end
+
+ re run the test 
+ ops, 
+ we don't have a view for about
+ go to app/view
+ create about.html
+ 
+
