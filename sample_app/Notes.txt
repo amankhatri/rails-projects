@@ -266,6 +266,199 @@ in our case i did it in stylesheets folder
 <---------------------------------------------------->
 l-4c 
 rails consol 
+runn rails c in cmd
+ruby can do arthimatic and you cam pass  comments using 
+#
+
+"" #empty string
+"foo" #non empty string
+"foo" + "bar"  #concatination which results in
+foobar
+you can also do 
+"foo".concat("bar")
+for explaination of ruby look at application.html.erb 
+below:
+module ApplicationHelper
+	#Return a title on a per page basis
+	def title   #name of the method
+		# local variable base_title
+		base_title = "Ruby on Rails Tutorial Sample App"
+		#@title is the global variable
+		if @title.nil? #this is a boolean expression
+			base_title
+		else
+			#evaluate base_title when you put hash in fron
+			"#{base_title} | #{@title}"	
+		end
+	end
+
+
+end
+
+
+another example of ruby
+first_name = "Michael" results in :
+>> "Michael" 
+"#{first_name}' Hartl"
+>> "Michael Hartl"
+last_name = "Hartl"
+>> "Hartl"
+# example of string interpolation
+"#{first_name} #{last_name}" #this is much clear and is the convention
+>> Michael hartel
+"$first_name $last_name"
+
+for example in the line 
+"#{base_title} | #{@title}"	 of application_helper.rb
+we are interpolating and saying evaluate base_title and title , pass the title by interpolation
+to print the string in ruby we will do 
+puts "foo" #example
+and it returns nil
+# results from command prompt
+>>foo  
+>>nil
+we see we have nil and this is the side effect which means nothing. which means foo evaluates to nothing
+we can also puts a variable
+puts first_name
+>> Michael
+>>nil
+when you do use print like this:
+print first_name
+it results to :
+>>Michael => nil # we can undertand this by doing this by doing
+print "#{first_name}\n"  which results  in 
+>> Michael
+>> nil 
+which results in the same thing as it did for puts 
+both of them gives the same results
+ so far we have been talking about double quoted strings ruby also supports  single coated strings. so if we do this
+ 'foo' the results is
+ >>"foo"  that is ruby returns in double quoted strings but there is a different beween double quotes and single quoted . so lets do this:
+ "foo\n" results in
+ >> "foo\n" 
+ 'foo\n' results in
+ 'foo\\n'
+ as we can see the single quote string inclues a litertal \ we can get that by putting double slashed n .
+ lets do 
+ puts "foo\n" results in 
+ >>foo 
+ >>nil 
+ now lets do 
+ puts 'foo\n'
+ >>foo\n
+ >>nil
+ single quoted strings puts out whatever it is gets in. 
+ you can do this 
+ "#{first_name} #{last_name}" results in 
+ >> "Michael hartl"
+ '#{first_name} #{last_name}' results
+ >>"#{first_name} #{last_name}"
+so single quote doesn't do interpolate at all
+everything in ruby is an object andyou call methods on objects
+lets try
+"foobar".length
+>>6
+#any method with a question mark is a boolean method it takes either true or false. losts of method in ruby is boolean. sometimes there may be boolean which may not have a question mark
+"foobar".empty? results in
+>>false
+lets try this:
+"".empty?
+>true
+''.empty
+>>true
+the boolean strings are useful in control flow because in one case you want to do one thing and in another you want to do another thing
+lets try
+s = "foobar"
+if s.empty?
+"the string is empty"
+else
+"the string is not empty"
+end
+>>"the string is not empty"
+in application_helper in the following line we have:
+if @title.nil? which is a boolean method and @title is the isntance variable. notice I used the word return 
+, ruby does have the return word but it doesn't change much for example we can have this in out application_helper.rb
+		if @title.nil? #this is a boolean expression
+		 return	base_title
+		else
+		 return	"#{base_title} | #{@title}"	
+		end
+by default ruby returns a last value evaluted in the method for returns
+boolean methods can be used in cobination
+x="foo"
+>> "foo"
+y = ""
+>>nil
+puts "Both Strings are empty" if x.empty> && y.empty?
+>>nil
+we can also do or statement
+puts "one of the strings is empty" if x.empty> || y.empty?
+>>one of the strings is empty.
+ruby also has not operator
+puts "x is not empty" if !x.empty?
+ruby also has unless key word which can be used instead of not
+puts "x is not empty" unless x.empty?
+>>x is not empty
+>>nil
+empty method can be called for more stuff then just trings
+lets try this
+nil.empty? 
+>> gives us  bunch of exceptions .
+however we can convert nil to string by
+nil.to_S
+>>""
+and we can call nested methods
+nil.to_S.empty
+>>true
+now we will interpolate the nil
+"#{nil}"
+>>""
+false and true are also methods  . false belongs to FalseClass
+nil object always evaluates to false so if we do this
+if nil 
+ "hello"
+ else
+  "good bye"
+  end   we get
+  >>"good bye"
+
+  things like 0 are true
+  if 0
+ "hello"
+ else
+  "good bye"
+  end   we get
+  >>"hello"
+  !!nil results in
+  >>false
+
+  so everthing except false and nil are true
+  method and function defintion
+  function and method are same thing
+  def string_message(something_crazy)
+  	if something_crazy.nil?
+  		"It's nil"
+  	else
+ 		"Something"
+    end
+  end
+
+ evaluates to 
+ >>nil
+ calling the method 
+ string_message("")
+ >>"it's something"
+instance variables are nil when there is no value to it.
+<------------------------------------------------------->
+l-4d
+
+
+
+
+
+
+
+
 
  
 
