@@ -93,5 +93,110 @@ we will now generate test which would lead to failure. now spec/pages_controller
  we don't have a view for about
  go to app/view
  create about.html
- 
+ v-19, 
+ Goal: Static pages and a little bit of dynamic page
+ we will change the titles of the pages about,contact and home
+ --writing a test in pages_controller_spec.rb
+  it "should have the right title" do
+    get 'home'
+    response.should have_selector("title",
+      :content => "Ruby on Rails Tutorial Sample App | Home")
+  end
+  here have_selector is a method
+  in which we mention the html tag of which we want to write test for.
+  and variable content => shoud contain the text and | is pipeline
+  runs the test,
+  test fails ops
+  now we have to edit home.html.erb
+  runs the test
+  test fails ops, 
+  however we have made the right page the test fails. The
+  reason being the fact that we initially removed the feature for testing views 7 helpers using rspec. Hence we would have to check it using the controllers page. so to achieve that we will write render_view under the line
+	describe PagesController. like this	
+	describe PagesController do
+    render_views
+   now we have changed all the html pages and and we run the test -- which are still failing 0_o and I do not know why.
+   Any who, 
+   when you go to any of the pages using rails s in the browser, you will notice that the title on the source code in the browser is sample app. This is because of the layouts.
+   go to app/views/layouts/application.html.erb
+   you will see this  :
+
+   	<!DOCTYPE html>
+<html>
+<head>
+  <title>SampleApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
+
+for time being we are getting rid of it but we will bring it back
+
+run command rm app/views/layouts/application.html.erb
+
+now since the application.html.erb is removed go to web browser and refresh the page. now we have the right title.
+test are still failing if you are wondering about it 0_p
+notice we have similar pages, everything in the home, about and contact page is same except the body so we will reduce this duplication. We will now configure the controller to have our view rendered properly. To do this the steps are:
+	we will add something to each page and make the title look almost same, this will be done using embedded ruby.
+	go to the pages_controller and do this:   
+def home
+  	@title = "Home"
+end
+now I will go to the home.html.erb and do this :
+<title>Ruby on Rails Tutorial Sample App | <%= @title %>/title>
+now this is dynamic html.
+<%= @title %> this inserts the content of @title variable to the html page from controller.
+now do this for all three pages and controller methods
+  def contact
+  	@title = "Contact"
+  end
+
+  def about
+  	@title = "About"
+  end
+end
+
+NOTE: REMEMBER THE SCOPE OF VARIABLE TITLE IS JUST IN THAT METHOD.
+test are still failing :c
+now it would be benificial to clump the title of all the pages in one file since all titles are same in html pages about home and contact
+<title>Ruby on Rails Tutorial Sample App | <%= @title %>/title>
+to achieve this we will restore application.html.erb which we had removed previously. this can be done by adding a new file application.html.erb
+
+now we will cut this :
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ruby on Rails Tutorial Sample App |<%= @title %></title>
+	</head>
+	<body>
+	</body>
+</html>
+from all the files (home, about , contact)
+and add it to application.html.erb
+now if we go to the web page in the browser we see nothing, 
+that is because we don't have anything in body of application.html.erb file.
+so now before doing that we will right the test to make sure the body is not empty
+go to pages_controller_spec.rb and 
+add this to section of home about and contact page
+    it "should have a non-blank body" do
+      get 'home'
+      response.body.should_not =~//
+    end
+ where /<body>\s*<\/body>/ <--- is  regular expression which means matching text of the body or body content with blank content. 
+ go to rubular check it out its ia a ruby regular expression editors.
+now insert the body in application.html.erb using ebedded ruby 
+we do this by entring  yield 
+<%= yield %> which is related to ruby block and what we are doing is we are yielding the details of about home and contact page. so what yiled would do is insert the content of home contact and about page instead of yield in application.html.erb
+we do not have to write the test for body for each of home contact and about page because we handle everything though one layout. so we only make one test.
+in rails 3 we have a meta tag:
+<%= csrf_meta_tag %>
+which is I included in application.html.erb file. 
+crsf_meta_tag which is a ruby function and is cross site
+request forgery.  It prevent a perticular kind of attack.
 
