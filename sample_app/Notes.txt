@@ -200,3 +200,57 @@ which is I included in application.html.erb file.
 crsf_meta_tag which is a ruby function and is cross site
 request forgery.  It prevent a perticular kind of attack.
 
+<------------------------------------------------------>
+L-4a introduction to rails helper for page titles
+css inclusion 
+and to learn run function conditions and data structures
+when i say lay out file I mean application.html.erb
+in this file, eapplication.html.erb we have title 
+<title>Ruby on Rails Tutorial Sample App |<%= @title %></title> 
+which we can specialize using helpers in app/helpers/application_helper.rb
+
+	def title
+		base_title = "Ruby on Rails Tutorial Sample App"
+		if @title.nil?
+			base_title
+		else
+			"#{base_title} | #{@title}"	
+		end
+	end
+
+	now we can change application.html.erb from 
+	<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ruby on Rails Tutorial Sample App |<%= @title %></title>
+		<%= csrf_meta_tag %>
+	</head>
+	<body>
+		<%= yield %>
+	</body>
+</html>
+
+to 
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%=title %></title>
+		<%= csrf_meta_tag %>
+	</head>
+	<body>
+		<%= yield %>
+	</body>
+</html>
+so application.html.erb serves as a base templete and it takes it from applicaion_helper.rb. 
+run in browser and see what happens
+
+now delete  @title = "about"  temprorily from pages_Controller
+  def about
+  	@title = "About"
+  end
+  and run it in browser
+
+ 
+
+
