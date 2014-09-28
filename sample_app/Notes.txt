@@ -250,6 +250,22 @@ now delete  @title = "about"  temprorily from pages_Controller
   	@title = "About"
   end
   and run it in browser
+<--------------------------------------------------------->
+l-4b same video
+css inception 
+to add ccss or any other asset
+do
+# Rails.application.config.assets.precompile += %w( filename.js )
+in config/initializers/assets.rb
+for example i entered 
+Rails.application.config.assets.precompile += %w( blueprint/screen.css )
+Rails.application.config.assets.precompile += %w( blueprint/print.css )
+
+and copy paste the assets in athe app/assets/images or javasctipts or stylesheets folder
+in our case i did it in stylesheets folder
+<---------------------------------------------------->
+l-4c 
+rails consol 
 
  
 
