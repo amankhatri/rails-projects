@@ -451,15 +451,183 @@ if nil
 instance variables are nil when there is no value to it.
 <------------------------------------------------------->
 l-4d
+for example we will consider app/layouts/application.html.erb we have
+<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+so 
+<%= => puts the results of the method stylesheets_ling_tag which accepts the link to css file which is in app/assets/stylesheets.
+:media => 'screen' is a hash. 
+now we are loooking at arrays in ruby
+"foo bar              baz".split 
+by default it will split in white space so it will eleminate
+white space
+it returns 
+>>["foo","bar","baz"]
+how ever you can also do this
+"fooxxxbarxxxbazxxx".split("xxx")
+>>["foo","bar","baz"]
+a = [42, 8 ,17]
+a[0]
+returns
+>>42
+a[1]
+returns
+>>8 
+and if you do 
+a[-1]
+it returns
+17 , that is it returns the last element and hence wraps around
+a.first 
+returns
+>>42
+a.last
+>>17
+infact ruby is very maliable you can pretty much add methods to the default classes in ruby
+we can do a.length, a.empty? , and we can compare arrays
+a == [42,8,17]
+however we can not do a>=[42,8,17] which doesn't make semse
+we can do 
+x = a.lenth
+x ==3
+returns
+>>true
+x<3
+returns 
+>>false
+go to ruby api and read stuff ruby-doc.org/core
+a new dataype which is range
+1..52 which is range in ruby
+however if we run a method onto it
+1..52.to_a
+it willnot work , the reason being  the something.method then the.method is tied to the something  tightly then to anything before that i.e 1..52.to_a to_a has tight bond to 52 than to 1.. so it gives array
+however to make it work properly 
+we will do 
+(1..52).to_a
+which results in legit thing
+now we will push stuff  to push stuff
+we will do 
+a<<9 which results in 
+>>[42,17,8,9]
+you can also mix types in array
+a<< "foo"
+>>[42,17,8,9,"foo"]
+you can put range
+a << (1..5)
+you can this 
+a << %w[foo bar baz]
+which is insearting array in array
+>>[42, 17,8,9,"foo",1,1..5,["foo", "bar","baz"]]
+both arrays and ranges contains a list of elements, and one of the things to do to these elements is to itterate through them. this prperty is innumerability and data type that supports this is called enumerable, which is a ruby module and has an idea behind it to go through "each " element
+you can type Enumberable in rails c.
+example
+(1..5).each results in
+>>#<Enumerator: 1..5:each>
+(1..5).each {|i| puts 2**i} #2**i is exponentiation which results in 
+2
+4
+8
+16
+32
+=>1..5 this is the side effect ruby always evealutes the result as the object
 
+now we will store each element of array in a 
+ a = []
+ (1..5).each {|i| a <<2**i} results in 
+ [2,4,8,16,32]
 
+ much easier way to do this using map:
+ (1..5).map {|i| 2**i}
+ [2,4,8,16,32]
+look up inject in ruby api
 
+now {|i| a <<2**i} is being passed to each method as an argument. {|i| a <<2**i} this is a block for the statement
+(1..5).each {|i| a <<2**i}
+to understand blocks lets look at something from gem file
+group :test do
+	gem 'selenium-webdriver', '2.35.1'
+	gem 'capybara', '2.1.0'
+end
 
+group is a method in the bundler, so we can see group takes an argument (:development) and it takes a block  everything from do to end is a block
 
-
-
-
-
- 
-
-
+arrays can also be used with map
+%[a b c]
+returns
+>>"a b c"
+%w[a b c] returns
+>>["a","b","c"]
+double coted can be done using 
+%(a b c)
+>> "a b c"
+ we will use this: 
+ %w[a b c] returns
+>>["a","b","c]
+%[a b c].map {|string| string.upcase} returns 
+["A","B","C"]
+"foo".class returns
+>>String
+:foo.class results in 
+>>Symbol  #it is a symbol 
+lets to 
+user = {}
+user.class returns
+>>Hash
+hash are arrays so instead of having integers as their keys they can have anything as indexs
+we can do 
+user["first_name"] = "Michael" returns
+"Michael"
+now lets do 
+user["last_name"] = "Hartl" returns
+"Hartl"
+so now lets see what user is by typing :
+user in console
+user returns
+{"first_name" => "Michael" , "ast_name" => "Hartl"}
+you can infact to 
+user[17] = "Hello"
+hashes do not preseve order. 
+hashes are key value pair, order is not important
+you can also do 
+user = {"first_name"=>"Michael",last_name => "Hartl"}
+we usually use symbols as keys
+user = {:first_name => "Michael",:last_name => "Hartl"}
+:first_name is a smbol
+"name.length" return
+4
+s = "name" returns
+"name"
+s == 'name' returns
+>>true
+:name.length returns
+=>4 
+so we can concluse that symbols are aware of their own length
+lets do 
+"name".split('') returns
+["n","a","m","e"]
+where as you can not use 
+:name.split('') returns 
+error
+however we can just compare the hashes
+user[:first_name] returns
+"Michael"
+we can iterate through hash maps
+flash = {:success => "It worked", :error => "It failed"}
+to iterate we will do
+flash.each do |key,value|
+puts "Key #{key.inspect} has a value #{valule.inspect}"
+we can not convert symbols to string because it strips the symbol 
+:success.to_a returns
+"success" but I literallly want the symbol so i use inspect
+now if we look at the files helpers/application.html.erb
+we would wonder why is this line:
+<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+is not like this
+<%= stylesheet_link_tag ('blueprint/screen', {:media => 'screen'}) %>
+well you can write it this way, but the above syntax is bit simple so we used that
+--ruby objecgts
+this is by invoking the constructor 
+s = "foobar" returns
+"foobar"
+s.class returns 
+String
+this is by creating new instance of class string
+s = String.new("foobar")
